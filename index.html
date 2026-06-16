@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kelhe — A risk layer for autonomous agents</title>
+  <meta name="description" content="Kelhe is a risk-scoring engine for AI agents. Every action is scored before it runs, then proceeds, holds for human approval, or is denied." />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="kelhe-fox-icon.svg" />
+  <link rel="apple-touch-icon" href="kelhe-fox-logo.png" />
+
+  <!-- Open Graph / social link preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kelhe" />
+  <meta property="og:title" content="Kelhe — A risk layer for autonomous agents" />
+  <meta property="og:description" content="Every action an AI agent takes is scored before it runs. Proceed, hold for a human, or deny." />
+  <meta property="og:url" content="https://kelhe.com" />
+  <meta property="og:image" content="https://kelhe.com/kelhe-fox-logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kelhe — A risk layer for autonomous agents" />
+  <meta name="twitter:description" content="Every action an AI agent takes is scored before it runs. Proceed, hold for a human, or deny." />
+  <meta name="twitter:image" content="https://kelhe.com/kelhe-fox-logo.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ───────────────────────── Nav ───────────────────────── -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Kelhe home">
+        <svg class="nav__logo" viewBox="0 0 180 200" fill="currentColor" fill-rule="evenodd" aria-hidden="true">
+          <path d="M22 26 L60 60 C66 56 74 54 90 54 C106 54 114 56 120 60 L158 26 C161 24 165 27 164 31 L150 92 C162 108 168 126 168 144 C168 160 158 174 142 184 C140 170 132 160 122 156 C112 168 102 174 90 174 C78 174 68 168 58 156 C48 160 40 170 38 184 C22 174 12 160 12 144 C12 126 18 108 30 92 L16 31 C15 27 19 24 22 26 Z M58 112 L80 120 L62 133 Z M122 112 L100 120 L118 133 Z M90 150 l-9 10 a9 8 0 0 0 18 0 Z"/>
+        </svg>
+        <span class="nav__wordmark">kelhe</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#engine">The engine</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn--sm" href="mailto:team@kelhe.com">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ───────────────────────── Hero ───────────────────────── -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="eyebrow">Kelhe · Risk Scoring Engine</span>
+          <h1>A risk layer for<br />autonomous agents.</h1>
+          <p class="lede">
+            AI agents are starting to take real, irreversible actions — moving money,
+            deleting data, shipping code, messaging customers. Kelhe scores every
+            action <em>before</em> it runs, so the agent knows whether to proceed,
+            wait for a human, or stop.
+          </p>
+          <div class="hero__cta">
+            <a class="btn" href="mailto:team@kelhe.com">Get early access</a>
+            <a class="btn btn--ghost" href="#how">See how it works</a>
+          </div>
+        </div>
+
+        <!-- Live-looking decision panel -->
+        <div class="panel" aria-hidden="true">
+          <div class="panel__bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="panel__title">kelhe · decision</span>
+          </div>
+          <div class="panel__body">
+            <div class="panel__row">
+              <span class="panel__key">action</span>
+              <span class="panel__val">refund.issue($4,200)</span>
+            </div>
+            <div class="panel__row">
+              <span class="panel__key">agent</span>
+              <span class="panel__val">support-agent-7</span>
+            </div>
+            <div class="panel__meter">
+              <div class="panel__meter-label">
+                <span>risk score</span><span class="amber-text">0.71</span>
+              </div>
+              <div class="bar"><div class="bar__fill" style="width:71%"></div></div>
+            </div>
+            <div class="panel__decision">
+              <span class="chip chip--hold">⏸ HOLD FOR HUMAN</span>
+            </div>
+            <p class="panel__reason">refund exceeds $1,000 auto-approve threshold · routing to reviewer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Problem ───────────────────────── -->
+    <section class="band" id="problem">
+      <div class="container">
+        <h2 class="section-title">Agents act. Sometimes they shouldn't.</h2>
+        <p class="section-sub">
+          The interesting agents aren't the ones that answer questions — they're the ones
+          that <strong>do things</strong>. And the moment an agent can take an action in the
+          real world, there's a gap between what it intends and what it should be allowed to do.
+          Today, almost nothing sits in that gap.
+        </p>
+        <div class="grid grid--3">
+          <div class="mini">
+            <h3>Irreversible by default</h3>
+            <p>A payment, a deletion, a deploy, an outbound email. Once it runs, "undo" usually isn't an option.</p>
+          </div>
+          <div class="mini">
+            <h3>Hard-coded rules don't scale</h3>
+            <p>You can't write an <code>if</code> statement for every action an agent might take across every tool it can call.</p>
+          </div>
+          <div class="mini">
+            <h3>All-or-nothing autonomy</h3>
+            <p>Most setups either trust the agent fully or babysit every step. Neither is workable in production.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── How it works ───────────────────────── -->
+    <section class="band band--alt" id="how">
+      <div class="container">
+        <span class="eyebrow">How it works</span>
+        <h2 class="section-title">Middleware between intent and execution.</h2>
+        <p class="section-sub">
+          Kelhe is a thin call your agent makes right before it executes a tool. It returns a
+          risk score and a decision. Your agent does the rest.
+        </p>
+
+        <div class="flow">
+          <div class="flow__step">
+            <span class="flow__num">01</span>
+            <h3>Agent proposes</h3>
+            <p>Before executing, the agent sends Kelhe the action it's about to take, plus context — who, what, how much, on whose behalf.</p>
+          </div>
+          <div class="flow__arrow" aria-hidden="true">→</div>
+          <div class="flow__step">
+            <span class="flow__num">02</span>
+            <h3>Kelhe scores it</h3>
+            <p>The engine evaluates the action against risk signals — impact, reversibility, value, sensitivity, anomaly — and returns a single score.</p>
+          </div>
+          <div class="flow__arrow" aria-hidden="true">→</div>
+          <div class="flow__step">
+            <span class="flow__num">03</span>
+            <h3>A decision comes back</h3>
+            <p>Proceed, hold for a human, or deny — with a reason your agent (and your audit log) can act on.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Three outcomes ───────────────────────── -->
+    <section class="band" id="outcomes">
+      <div class="container">
+        <h2 class="section-title">Three outcomes. One contract.</h2>
+        <p class="section-sub">Every action resolves to exactly one of these.</p>
+        <div class="grid grid--3 outcomes">
+          <div class="card card--proceed">
+            <span class="chip chip--proceed">✓ PROCEED</span>
+            <h3>Low risk</h3>
+            <p>The action is safe and routine. Kelhe gets out of the way and the agent runs it immediately.</p>
+          </div>
+          <div class="card card--hold">
+            <span class="chip chip--hold">⏸ HOLD</span>
+            <h3>Needs a human</h3>
+            <p>Ambiguous or high-stakes. The action is paused and routed to a person for approval before anything happens.</p>
+          </div>
+          <div class="card card--deny">
+            <span class="chip chip--deny">✕ DENY</span>
+            <h3>Out of bounds</h3>
+            <p>The action crosses a hard line. Kelhe blocks it and returns a reason instead of an apology after the fact.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Sample call ───────────────────────── -->
+    <section class="band band--alt" id="engine">
+      <div class="container">
+        <span class="eyebrow">The engine</span>
+        <h2 class="section-title">One call. A score and a verdict.</h2>
+        <p class="section-sub">
+          Drop it in front of any tool call. No SDK lock-in — it's an HTTP request.
+        </p>
+
+        <div class="code-grid">
+          <figure class="code">
+            <figcaption>Request</figcaption>
+<pre><code><span class="c-kw">POST</span> https://api.kelhe.com<span class="c-fn">/v1/score</span>
+
+{
+  <span class="c-key">"agent"</span>: <span class="c-str">"support-agent-7"</span>,
+  <span class="c-key">"action"</span>: <span class="c-str">"refund.issue"</span>,
+  <span class="c-key">"params"</span>: {
+    <span class="c-key">"amount"</span>: <span class="c-num">4200</span>,
+    <span class="c-key">"currency"</span>: <span class="c-str">"USD"</span>,
+    <span class="c-key">"customer_id"</span>: <span class="c-str">"cus_9f3a"</span>
+  },
+  <span class="c-key">"context"</span>: {
+    <span class="c-key">"reversible"</span>: <span class="c-kw">false</span>,
+    <span class="c-key">"on_behalf_of"</span>: <span class="c-str">"ticket_5521"</span>
+  }
+}</code></pre>
+          </figure>
+
+          <figure class="code">
+            <figcaption>Response</figcaption>
+<pre><code>{
+  <span class="c-key">"risk_score"</span>: <span class="c-num">0.71</span>,
+  <span class="c-key">"decision"</span>: <span class="c-str c-amber">"hold_for_human"</span>,
+  <span class="c-key">"reason"</span>: <span class="c-str">"refund exceeds $1,000</span>
+            <span class="c-str">auto-approve threshold"</span>,
+  <span class="c-key">"signals"</span>: [
+    <span class="c-str">"high_value"</span>,
+    <span class="c-str">"irreversible"</span>
+  ],
+  <span class="c-key">"review_url"</span>: <span class="c-str">"https://app.kelhe</span>
+              <span class="c-str">.com/r/req_8c21"</span>
+}</code></pre>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Why a score ───────────────────────── -->
+    <section class="band" id="why">
+      <div class="container">
+        <h2 class="section-title">Why a score, not a guess.</h2>
+        <div class="grid grid--4">
+          <div class="feat">
+            <h3>Auditable</h3>
+            <p>Every decision carries its score, signals, and reason — so you can answer "why did the agent do that?"</p>
+          </div>
+          <div class="feat">
+            <h3>Fast</h3>
+            <p>Built to sit in the hot path of an action without becoming the reason your agent feels slow.</p>
+          </div>
+          <div class="feat">
+            <h3>Human-in-the-loop</h3>
+            <p>"Hold" is a first-class outcome, not an error. Hard calls go to a person, cleanly.</p>
+          </div>
+          <div class="feat">
+            <h3>Drop-in</h3>
+            <p>One request before execution. Works with any agent framework, any toolset, any language.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Contact ───────────────────────── -->
+    <section class="cta-band" id="contact">
+      <div class="container cta-band__inner">
+        <svg class="cta-mark" viewBox="0 0 180 200" fill="currentColor" fill-rule="evenodd" aria-hidden="true">
+          <path d="M22 26 L60 60 C66 56 74 54 90 54 C106 54 114 56 120 60 L158 26 C161 24 165 27 164 31 L150 92 C162 108 168 126 168 144 C168 160 158 174 142 184 C140 170 132 160 122 156 C112 168 102 174 90 174 C78 174 68 168 58 156 C48 160 40 170 38 184 C22 174 12 160 12 144 C12 126 18 108 30 92 L16 31 C15 27 19 24 22 26 Z M58 112 L80 120 L62 133 Z M122 112 L100 120 L118 133 Z M90 150 l-9 10 a9 8 0 0 0 18 0 Z"/>
+        </svg>
+        <h2>Building an agent that does real things?</h2>
+        <p>We'd like to hear what it's about to do. Kelhe is early — reach out and let's talk.</p>
+        <a class="btn btn--lg" href="mailto:team@kelhe.com">team@kelhe.com</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────── Footer ───────────────────────── -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <svg class="footer__logo" viewBox="0 0 180 200" fill="currentColor" fill-rule="evenodd" aria-hidden="true">
+          <path d="M22 26 L60 60 C66 56 74 54 90 54 C106 54 114 56 120 60 L158 26 C161 24 165 27 164 31 L150 92 C162 108 168 126 168 144 C168 160 158 174 142 184 C140 170 132 160 122 156 C112 168 102 174 90 174 C78 174 68 168 58 156 C48 160 40 170 38 184 C22 174 12 160 12 144 C12 126 18 108 30 92 L16 31 C15 27 19 24 22 26 Z M58 112 L80 120 L62 133 Z M122 112 L100 120 L118 133 Z M90 150 l-9 10 a9 8 0 0 0 18 0 Z"/>
+        </svg>
+        <span>Kelhe</span>
+      </div>
+      <p class="footer__note">A risk-scoring engine for autonomous agents. Built with care — and a bit of fun.</p>
+      <div class="footer__meta">
+        <a href="mailto:team@kelhe.com">team@kelhe.com</a>
+        <span>© <span id="year">2026</span> Kelhe</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
