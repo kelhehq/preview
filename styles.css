@@ -46,7 +46,11 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   font-family: var(--sans);
@@ -58,7 +62,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
+
+img, svg { max-width: 100%; height: auto; }
 
 a { color: inherit; text-decoration: none; }
 code { font-family: var(--mono); font-size: 0.9em; }
@@ -271,8 +278,8 @@ h1, h2, h3 { color: var(--heading); text-wrap: balance; }
   align-items: center;
 }
 .hero__title {
-  font-size: clamp(2.5rem, 1.4rem + 4vw, 3.85rem);
-  line-height: 1.03;
+  font-size: clamp(2.05rem, 1.1rem + 4.6vw, 3.85rem);
+  line-height: 1.04;
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--heading);
@@ -826,10 +833,10 @@ textarea.form__input { resize: vertical; min-height: 84px; }
   .request { grid-template-columns: 1fr; gap: 40px; }
 
   /* flow diagram → vertical */
-  .flow__pipe { flex-direction: column; align-items: stretch; max-width: 380px; margin-inline: auto; }
+  .flow__pipe { flex-direction: column; align-items: stretch; max-width: 360px; margin-inline: auto; }
   .flow__node, .flow__decisions { flex: 0 0 auto; }
-  .flow__decisions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-  .flow__pill { flex: 1 1 auto; }
+  .flow__decisions { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .flow__pill { flex: 1 1 auto; min-width: 96px; }
   .flow__edge { width: 2px; height: 30px; margin: 0 auto; }
   .flow__edge::after { right: 50%; top: auto; bottom: -2px; transform: translate(50%, 0) rotate(135deg); }
   .flow__elabel { left: calc(50% + 12px); top: 50%; bottom: auto; transform: translateY(-50%); }
@@ -848,7 +855,7 @@ textarea.form__input { resize: vertical; min-height: 84px; }
     display: none;
   }
   .nav__links.is-open { display: flex; }
-  .nav__links > a { padding: 11px 2px; font-size: 1rem; }
+  .nav__links > a { padding: 13px 2px; font-size: 1rem; }
   .nav__cta {
     margin-left: 0;
     margin-top: 12px;
@@ -856,19 +863,44 @@ textarea.form__input { resize: vertical; min-height: 84px; }
     align-items: stretch;
     gap: 10px;
   }
-  .nav__cta .nav__link { padding: 6px 2px; }
+  .nav__cta .nav__link { padding: 10px 2px; }
   .nav__cta .btn { width: 100%; }
 }
 
 @media (max-width: 600px) {
+  .container, .footer__bottom { padding-inline: 20px; }
   .section { padding-block: 64px; }
-  .hero { padding-block: 56px 56px; }
-  .hero__actions .btn { flex: 1; }
+  .hero { padding-block: 52px 52px; }
+  .hero__bg { height: 440px; opacity: 0.72; }
+
+  /* stack action buttons full-width — fixes nowrap overflow on phones */
+  .hero__actions, .cta__actions, .sec__cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .hero__actions .btn, .cta__actions .btn, .sec__cta .btn { width: 100%; }
+
+  /* hero decision card: wrap the code line, let rows wrap */
+  .decision__call { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .decision__row { flex-wrap: wrap; gap: 2px 12px; }
+  .decision__reason { text-align: left; }
+
   .compliance { flex-direction: column; align-items: flex-start; }
   .form__row { grid-template-columns: 1fr; }
   .request__form { padding: 24px; }
-  .cta__actions { display: flex; width: 100%; }
-  .cta__actions .btn { flex: 1; }
   .footer__inner { flex-direction: column; gap: 28px; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
+  .footer__links a { padding-block: 4px; }
+}
+
+@media (max-width: 460px) {
+  .container, .footer__bottom { padding-inline: 16px; }
+  .request__form { padding: 20px; }
+  .pricing__card { padding: 28px 22px; }
+  .decision__body { padding: 18px 16px; }
+  .flow__elabel { display: none; }
+  .flow__pill { min-width: 0; }
+  .pricing__row { flex-wrap: wrap; gap: 6px 16px; }
+  .pricing__price { white-space: normal; text-align: left; }
 }
