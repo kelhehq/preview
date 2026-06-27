@@ -858,10 +858,129 @@ textarea.form__input { resize: vertical; min-height: 84px; }
 .notfound__sub { margin-top: 18px; color: var(--text-2); font-size: 1.1rem; line-height: 1.6; text-wrap: pretty; }
 .notfound__actions { margin-top: 30px; display: flex; gap: 13px; flex-wrap: wrap; }
 
+/* ── Emphasis inside leads ───────────────────────────────── */
+.hero__sub em, .section__lead em, .pillar__desc em, .mode__desc em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+/* ── Stat band (why now) ─────────────────────────────────── */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.stat {
+  padding: 32px 30px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+.stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--line-2); }
+.stat--accent {
+  border-color: rgba(29,60,140,0.32);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(29,60,140,0.05);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(29,60,140,0.05), transparent 70%),
+    var(--surface);
+}
+.stat__num {
+  display: block;
+  font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--heading);
+  font-variant-numeric: tabular-nums;
+}
+.stat--accent .stat__num { color: var(--accent); }
+.stat__unit { font-size: 0.5em; font-weight: 700; margin-left: 1px; }
+.stat__label { margin-top: 15px; color: var(--text-2); font-size: 0.98rem; line-height: 1.55; }
+.stats__source { margin-top: 20px; text-align: center; color: var(--text-3); font-size: 0.82rem; line-height: 1.5; }
+.stats__source a { color: var(--text-2); text-decoration: underline; text-underline-offset: 2px; }
+.stats__source a:hover { color: var(--accent); }
+
+/* ── Get started (code + modes) ──────────────────────────── */
+.start {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 36px;
+  align-items: start;
+}
+.code {
+  background: #0f1320;
+  border: 1px solid #1c2438;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.code__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #0b0e18;
+  border-bottom: 1px solid #1c2438;
+}
+.code__dots { display: inline-flex; gap: 6px; }
+.code__dots i { display: block; width: 11px; height: 11px; border-radius: 50%; background: #2a3350; }
+.code__file { font-family: var(--mono); font-size: 0.78rem; color: #7e8aa8; }
+.code__body {
+  margin: 0;
+  padding: 20px 22px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: #c6cee0;
+  -webkit-font-smoothing: auto;
+}
+.code__body code { font-family: inherit; font-size: inherit; }
+.code .c-c  { color: #5d6a8c; }                                   /* comment */
+.code .c-k  { color: #7aa2ff; }                                   /* keyword */
+.code .c-f  { color: #5bd1c4; }                                   /* function / class */
+.code .c-s  { color: #9bdc8b; }                                   /* string */
+.code .c-hl { color: #ffd479; background: rgba(255,212,121,0.12); border-radius: 4px; padding: 1px 4px; }
+
+.start__frameworks { margin-top: 16px; color: var(--text-3); font-size: 0.9rem; line-height: 1.65; }
+.start__frameworks strong { color: var(--text); font-weight: 600; }
+.start__frameworks code { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; color: var(--accent-ink); }
+
+.modes { display: grid; gap: var(--space-3); align-content: start; }
+.mode {
+  padding: 26px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+.mode:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); border-color: var(--line-2); }
+.mode__tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.mode__tag--observe { color: var(--accent); background: var(--accent-soft); }
+.mode__tag--enforce { color: var(--ok); background: rgba(21,127,74,0.09); }
+.mode__title { margin-top: 14px; font-size: 1.12rem; font-weight: 650; letter-spacing: -0.015em; color: var(--heading); }
+.mode__desc { margin-top: 8px; color: var(--text-2); font-size: 0.95rem; line-height: 1.6; }
+.mode__desc code { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; color: var(--accent-ink); font-size: 0.86em; }
+
+/* ── Who it's for (slim team row) ────────────────────────── */
+.teams { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.team { padding-top: 22px; border-top: 2px solid var(--line-2); }
+.team__title { font-size: 1.1rem; font-weight: 650; letter-spacing: -0.015em; color: var(--heading); }
+.team__desc { margin-top: 9px; color: var(--text-2); font-size: 0.95rem; line-height: 1.6; }
+
 /* ── Reveal on scroll ────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   .section__head, .pillar, .flow, .sec__item, .pricing, .faq__item, .decision,
-  .compliance, .next__step, .request__form {
+  .compliance, .next__step, .request__form, .stat, .code, .mode, .team {
     animation: rise 0.6s var(--ease) both;
     animation-timeline: view();
     animation-range: entry 0% cover 22%;
@@ -890,6 +1009,9 @@ textarea.form__input { resize: vertical; min-height: 84px; }
   .pillars { grid-template-columns: 1fr; gap: 22px; }
   .sec { grid-template-columns: 1fr; }
   .request { grid-template-columns: 1fr; gap: 40px; }
+  .stats { grid-template-columns: 1fr; gap: 16px; }
+  .teams { grid-template-columns: 1fr; gap: 28px; }
+  .start { grid-template-columns: 1fr; gap: 28px; }
 
   /* flow diagram → vertical */
   .flow__pipe { flex-direction: column; align-items: stretch; max-width: 360px; margin-inline: auto; }

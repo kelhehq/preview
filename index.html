@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelhe — The control point for AI agent actions</title>
-  <meta name="description" content="Kelhe is a runtime risk engine for AI agents. Wrap your tools once; every tool call is scored before it executes and returns a decision — allow, hold for a human, or block. Fail-safe, audited, built for enterprise." />
+  <title>Kelhe — The runtime control point for AI agent actions</title>
+  <meta name="description" content="Most AI agents never leave the pilot because no one can trust what they'll do in production. Kelhe scores every action your agents take — before it runs — and returns a decision in milliseconds: allow, hold for a human, or block. Wrap your tools once, start in observe mode, enforce when you trust it." />
   <meta name="keywords" content="AI agent security, runtime risk engine, tool call guardrails, agent governance, LLM security, human-in-the-loop" />
   <meta name="theme-color" content="#ffffff" />
   <meta name="robots" content="index, follow" />
@@ -31,7 +31,7 @@
   <link rel="preload" as="image" href="kelhe-fox-icon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20260627d" />
+  <link rel="stylesheet" href="styles.css?v=20260627e" />
 
   <!-- ── Structured data (JSON-LD) ─────────────────────────── -->
   <script type="application/ld+json">
@@ -125,6 +125,7 @@
       </button>
       <nav class="nav__links" id="navMenu" aria-label="Primary">
         <a href="#how">How it works</a>
+        <a href="#start">Get started</a>
         <a href="#security">Security</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
@@ -145,18 +146,18 @@
       <div class="hero__grid">
         <div class="hero__copy">
           <span class="eyebrow">Runtime control for AI agents</span>
-          <h1 class="hero__title">The control plane for what your AI agents do.</h1>
+          <h1 class="hero__title">Trust your AI agents in production.</h1>
           <p class="hero__sub">
-            Kelhe scores every tool call your agents make and returns a decision in
-            milliseconds — allow, hold for a human, or block. It's the enforcement
-            checkpoint your security, platform, and risk teams put in front of every
-            action an agent can take.
+            Agents are easy to demo and hard to trust — the moment one can move money,
+            change access, or delete data, a single wrong call is an incident. Kelhe
+            scores every action your agents take <em>before it runs</em> and returns a
+            decision in milliseconds: allow, hold for a human, or block.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="#request">Request access</a>
-            <a class="btn btn--ghost btn--lg" href="mailto:team@kelhe.com?subject=Talk%20to%20sales">Talk to sales</a>
+            <a class="btn btn--ghost btn--lg" href="#how">See how it works</a>
           </div>
-          <p class="hero__note">Wrap your tools once · No agent rewrites · No local models</p>
+          <p class="hero__note">Wrap your tools once · Start in observe mode · No agent rewrites</p>
         </div>
 
         <div class="hero__visual">
@@ -202,46 +203,81 @@
       </div>
     </section>
 
-    <!-- ───────────────────────── Value ───────────────────────── -->
-    <section class="section section--alt">
+    <!-- ───────────────────────── Why now (the trust gap) ───────────────────────── -->
+    <section class="section section--alt" id="why">
       <div class="container">
         <div class="section__head section__head--center">
-          <span class="eyebrow">Why Kelhe</span>
-          <h2 class="section__title">When an agent can act, a wrong call is an incident.</h2>
+          <span class="eyebrow">Why now</span>
+          <h2 class="section__title">The blocker to agents in production isn't capability. It's trust.</h2>
           <p class="section__lead">
-            Autonomous agents now deploy code, move money, and change access. Kelhe puts a
-            single, governed checkpoint in front of the actions that matter.
+            Nearly every company is piloting agents. Almost none trust them enough to let
+            them act in production — because nothing independent decides what an agent is
+            allowed to do once it's loose on real systems.
           </p>
         </div>
 
-        <div class="pillars">
-          <div class="pillar">
-            <span class="pillar__num">01</span>
-            <h3 class="pillar__title">See every action</h3>
-            <p class="pillar__desc">Start in observe mode: every tool call is scored with zero production impact, giving you a complete, queryable record of what your agents actually do — from day one.</p>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat__num">~85<span class="stat__unit">%</span></span>
+            <p class="stat__label">of enterprises are piloting AI agents.</p>
           </div>
-          <div class="pillar">
-            <span class="pillar__num">02</span>
-            <h3 class="pillar__title">Stop the dangerous ones</h3>
-            <p class="pillar__desc">Every call gets a risk score and a decision. High-risk actions are held or blocked before they execute — never after the fact — each with a reason on the record.</p>
+          <div class="stat stat--accent">
+            <span class="stat__num">~5<span class="stat__unit">%</span></span>
+            <p class="stat__label">trust them enough to run in production. Closing that gap is the whole job.</p>
           </div>
-          <div class="pillar">
-            <span class="pillar__num">03</span>
-            <h3 class="pillar__title">Keep humans in control</h3>
-            <p class="pillar__desc">Held actions route into the approval and on-call workflows your teams already run — Slack, PagerDuty, and your own systems — so a person owns every irreversible call.</p>
+          <div class="stat">
+            <span class="stat__num">#1</span>
+            <p class="stat__label">barrier to scaling agents is now security &amp; risk — ahead of cost or capability.</p>
           </div>
+        </div>
+        <p class="stats__source">
+          Sources: 2026 enterprise surveys on agentic AI adoption and the
+          <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" rel="noopener">OWASP Top 10 for Agentic Applications</a> (“excessive agency”).
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── What Kelhe is ───────────────────────── -->
+    <section class="section container" id="what">
+      <div class="section__head">
+        <span class="eyebrow">What Kelhe is</span>
+        <h2 class="section__title">One independent control point on every action an agent takes.</h2>
+        <p class="section__lead">
+          Not a smarter prompt, and not a dashboard you read after the fact. Kelhe sits
+          on the path of the action itself — outside the model — and decides, in real
+          time, whether it runs.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar__num">01</span>
+          <h3 class="pillar__title">See every action</h3>
+          <p class="pillar__desc">Every tool call is scored and recorded — a complete, queryable answer to “what are our agents actually doing,” from the first day you install it.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__num">02</span>
+          <h3 class="pillar__title">Score the risk</h3>
+          <p class="pillar__desc">The engine reads the real action — the tool, its arguments, the agent's mandate and intent — and returns one risk score, 0 (safe) to 10 (dangerous).</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__num">03</span>
+          <h3 class="pillar__title">Decide before it runs</h3>
+          <p class="pillar__desc">Above your threshold, the action is held for a human or blocked — never after the fact. Every outcome lands in the record with a reason.</p>
         </div>
       </div>
     </section>
 
     <!-- ───────────────────────── How it works ───────────────────────── -->
-    <section class="section container" id="how">
+    <section class="section section--alt" id="how">
+      <div class="container">
       <div class="section__head">
         <span class="eyebrow">How it works</span>
-        <h2 class="section__title">One wrapper. One API. Every tool call protected.</h2>
+        <h2 class="section__title">Your agent calls a tool. Kelhe decides if it runs.</h2>
         <p class="section__lead">
-          You don't rewrite your agents — you wrap the tools they already use. Start in
-          observe mode, then flip to enforce when your team trusts the decisions.
+          The wrapper captures the real action and its context, the engine scores it, and
+          the tool executes <em>only</em> on a decision — so enforcement happens outside
+          the model, where it can't be talked out of it.
         </p>
       </div>
 
@@ -278,6 +314,76 @@
           action to a human; <strong>Block</strong> stops it — every outcome recorded with a reason.
         </figcaption>
       </figure>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Get started ───────────────────────── -->
+    <section class="section" id="start">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Get started</span>
+          <h2 class="section__title">Wrap one tool. Start in observe mode. Enforce when you trust it.</h2>
+          <p class="section__lead">
+            There's no platform to migrate to and no agent to rewrite. You wrap the tools
+            your agents already call — one line each — and Kelhe begins scoring. This is
+            the path security teams recommend: watch first on your highest-risk workflow,
+            turn on enforcement when the decisions earn it.
+          </p>
+        </div>
+
+        <div class="start">
+          <div class="start__code">
+            <div class="code">
+              <div class="code__bar">
+                <span class="code__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code__file">refund_agent.py</span>
+              </div>
+<pre class="code__body"><code><span class="c-c"># pip install "kelhe[openai]"</span>
+<span class="c-k">from</span> kelhe <span class="c-k">import</span> Kelhe
+<span class="c-k">from</span> kelhe.adapters.openai_agents <span class="c-k">import</span> guard
+<span class="c-k">from</span> agents <span class="c-k">import</span> Agent
+
+kelhe = <span class="c-f">Kelhe</span>(api_key=<span class="c-s">"sk_kelhe_…"</span>)  <span class="c-c"># observe-only by default</span>
+
+<span class="c-k">def</span> <span class="c-f">issue_refund</span>(amount: int, customer: str) -> str:
+    <span class="c-s">"Issue a refund to a customer."</span>
+    <span class="c-k">return</span> f<span class="c-s">"refunded ${amount} to {customer}"</span>
+
+agent = <span class="c-f">Agent</span>(
+    name=<span class="c-s">"billing"</span>,
+    instructions=<span class="c-s">"process approved customer refunds"</span>,
+    tools=[<span class="c-hl">guard(kelhe, issue_refund)</span>],  <span class="c-c"># ← the only change</span>
+)</code></pre>
+            </div>
+            <p class="start__frameworks">
+              Same one-line <code>guard()</code> across
+              <strong>OpenAI Agents SDK</strong>, <strong>LangGraph / LangChain</strong>,
+              <strong>CrewAI</strong>, and <strong>AutoGen</strong>.
+            </p>
+          </div>
+
+          <div class="modes">
+            <div class="mode">
+              <span class="mode__tag mode__tag--observe">Step 1 · Observe</span>
+              <h3 class="mode__title">Drop it in. Change nothing.</h3>
+              <p class="mode__desc">
+                In observe mode Kelhe scores and logs every action but blocks nothing — so
+                adding it to a live system is risk-free. You get a complete record of what
+                your agents do and proof of which actions <em>would</em> have been stopped.
+              </p>
+            </div>
+            <div class="mode">
+              <span class="mode__tag mode__tag--enforce">Step 2 · Enforce</span>
+              <h3 class="mode__title">Flip one flag. Now it acts.</h3>
+              <p class="mode__desc">
+                Set <code>mode=ENFORCE</code> and a threshold. Risky actions are held for a
+                human or blocked before they run, routed into the approval and on-call tools
+                you already use — so a person owns every irreversible call.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ───────────────────────── What Kelhe catches ───────────────────────── -->
@@ -324,30 +430,27 @@
 
     <!-- ───────────────────────── Who it's for ───────────────────────── -->
     <section class="section container" id="who">
-      <div class="section__head">
+      <div class="section__head section__head--center">
         <span class="eyebrow">Who it's for</span>
-        <h2 class="section__title">Built for the teams accountable for what agents do.</h2>
+        <h2 class="section__title">One control point, for everyone accountable for the agent.</h2>
         <p class="section__lead">
-          Agent risk doesn't sit with one team. Kelhe gives each of them the control
-          and the evidence they're responsible for.
+          From the solo founder shipping their first agent to the buying committee at a
+          Fortune 20 — the same wrapper, read by each team for what they own.
         </p>
       </div>
 
-      <div class="pillars">
-        <div class="pillar">
-          <span class="pillar__num">01</span>
-          <h3 class="pillar__title">Security &amp; CISO</h3>
-          <p class="pillar__desc">An independent enforcement point in front of agent actions, with a complete audit trail for investigations and reviews — defense that doesn't depend on the model behaving.</p>
+      <div class="teams">
+        <div class="team">
+          <h3 class="team__title">Builders &amp; startups</h3>
+          <p class="team__desc">Ship the agent without hand-rolling guardrails. One line per tool, observe mode free to start — safety you can add the same afternoon.</p>
         </div>
-        <div class="pillar">
-          <span class="pillar__num">02</span>
-          <h3 class="pillar__title">Platform &amp; Engineering</h3>
-          <p class="pillar__desc">One wrapper, no agent rewrites, and a single API across every framework. Guardrails become shared infrastructure instead of per-team code, so teams ship agents faster.</p>
+        <div class="team">
+          <h3 class="team__title">Security &amp; platform</h3>
+          <p class="team__desc">An independent enforcement point in front of every agent action, shared across frameworks — defense that doesn't depend on the model behaving.</p>
         </div>
-        <div class="pillar">
-          <span class="pillar__num">03</span>
-          <h3 class="pillar__title">Governance, Risk &amp; Compliance</h3>
-          <p class="pillar__desc">Demonstrable human oversight and an exportable record of every decision and reason — evidence you can put in front of auditors and regulators.</p>
+        <div class="team">
+          <h3 class="team__title">Risk &amp; compliance</h3>
+          <p class="team__desc">Demonstrable human oversight and an exportable record of every decision and reason — evidence you can put in front of auditors.</p>
         </div>
       </div>
     </section>
@@ -512,7 +615,7 @@
     </section>
 
     <!-- ───────────────────────── Request access ───────────────────────── -->
-    <section class="section section--alt" id="request">
+    <section class="section" id="request">
       <div class="container request">
         <div class="request__copy">
           <span class="eyebrow">Request access</span>
