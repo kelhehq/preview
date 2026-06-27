@@ -31,7 +31,7 @@
   <link rel="preload" as="image" href="kelhe-fox-icon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20260627c" />
+  <link rel="stylesheet" href="styles.css?v=20260627d" />
 
   <!-- ── Structured data (JSON-LD) ─────────────────────────── -->
   <script type="application/ld+json">
@@ -182,15 +182,22 @@
         </div>
       </div>
 
-      <!-- ── Framework strip ── -->
+      <!-- ── Framework strip (auto-scrolling marquee) ── -->
       <div class="strip">
         <span class="strip__label">Works with</span>
-        <div class="strip__items">
-          <span>OpenAI Agents SDK</span>
-          <span>LangGraph</span>
-          <span>CrewAI</span>
-          <span>AutoGen</span>
-          <span>Custom agents</span>
+        <div class="strip__marquee">
+          <div class="strip__track">
+            <span class="strip__item">OpenAI Agents SDK</span>
+            <span class="strip__item">LangGraph</span>
+            <span class="strip__item">CrewAI</span>
+            <span class="strip__item">AutoGen</span>
+            <span class="strip__item">Custom agents</span>
+            <span class="strip__item" aria-hidden="true">OpenAI Agents SDK</span>
+            <span class="strip__item" aria-hidden="true">LangGraph</span>
+            <span class="strip__item" aria-hidden="true">CrewAI</span>
+            <span class="strip__item" aria-hidden="true">AutoGen</span>
+            <span class="strip__item" aria-hidden="true">Custom agents</span>
+          </div>
         </div>
       </div>
     </section>

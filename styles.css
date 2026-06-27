@@ -266,7 +266,7 @@ h1, h2, h3 { color: var(--heading); text-wrap: balance; }
 .nav__toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── Hero ────────────────────────────────────────────────── */
-.hero { position: relative; padding-block: clamp(64px, 8vw, 100px) clamp(64px, 7vw, 84px); }
+.hero { position: relative; padding-block: clamp(40px, 5vw, 72px) clamp(28px, 3vw, 44px); }
 .hero__bg {
   position: absolute;
   inset: -64px 0 auto 0;
@@ -377,23 +377,62 @@ h1, h2, h3 { color: var(--heading); text-wrap: balance; }
 .decision__v--hold { color: var(--hold); }
 .decision__reason { color: var(--text-2); font-size: 0.9rem; text-align: right; }
 
-/* ── Logo / framework strip ──────────────────────────────── */
+/* ── Logo / framework strip (auto-scrolling marquee) ─────── */
 .strip {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px 36px;
-  flex-wrap: wrap;
-  padding-block: 30px;
+  gap: 28px;
+  margin-top: clamp(28px, 4vw, 44px);
+  padding-block: 22px;
   border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(18,26,48,0.018), transparent 70%);
 }
-.strip__label { color: var(--text-3); font-size: 0.82rem; }
-.strip__items { display: flex; gap: 14px 32px; flex-wrap: wrap; justify-content: center; }
-.strip__items span {
+.strip__label {
+  flex: 0 0 auto;
+  color: var(--text-3);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.strip__marquee {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.strip__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
+}
+.strip:hover .strip__track { animation-play-state: paused; }
+.strip__item {
+  position: relative;
+  flex: 0 0 auto;
+  /* each item owns its trailing space so the duplicated half tiles
+     perfectly and translateX(-50%) loops seamlessly */
+  margin-right: 44px;
   color: var(--text-2);
   font-weight: 600;
   font-size: 0.92rem;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.strip__item::after {
+  content: "";
+  position: absolute;
+  right: -24px; top: 50%;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--line-2);
+  transform: translateY(-50%);
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ── Pillars (value) ─────────────────────────────────────── */
@@ -827,6 +866,16 @@ textarea.form__input { resize: vertical; min-height: 84px; }
     animation-timeline: view();
     animation-range: entry 0% cover 22%;
   }
+  .strip__track { animation: marquee 36s linear infinite; }
+}
+
+/* reduced motion: no auto-scroll — names wrap and sit still */
+@media (prefers-reduced-motion: reduce) {
+  .strip__marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .strip__track { flex-wrap: wrap; row-gap: 10px; }
 }
 @keyframes rise {
   from { opacity: 0; transform: translateY(16px); }
@@ -895,6 +944,10 @@ textarea.form__input { resize: vertical; min-height: 84px; }
   .decision__call { white-space: pre-wrap; overflow-wrap: anywhere; }
   .decision__row { flex-wrap: wrap; gap: 2px 12px; }
   .decision__reason { text-align: left; }
+
+  /* strip stacks: label above the scrolling marquee */
+  .strip { flex-direction: column; align-items: stretch; gap: 12px; }
+  .strip__marquee { width: 100%; }
 
   .compliance { flex-direction: column; align-items: flex-start; }
   .form__row { grid-template-columns: 1fr; }
