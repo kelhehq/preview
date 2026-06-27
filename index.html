@@ -58,7 +58,7 @@
         "operatingSystem": "Cloud",
         "url": "https://kelhe.com/",
         "publisher": { "@id": "https://kelhe.com/#org" },
-        "description": "Runtime risk engine for AI agents. Every guarded tool call is scored before it executes and returns a decision: allow, hold for a human, or block.",
+        "description": "Runtime risk engine for AI agents. Every guarded tool call is scored before it executes and returns a decision — allow, hold for a human, or block — with a defensible audit trail. The enforcement checkpoint security, platform, and risk teams put in front of every action an agent can take.",
         "offers": {
           "@type": "Offer",
           "priceCurrency": "USD",
@@ -93,6 +93,16 @@
             "@type": "Question",
             "name": "Why not just handle this in the prompt?",
             "acceptedAnswer": { "@type": "Answer", "text": "Prompts shape intent; they don't enforce it. A model can be persuaded, confused, or wrong, and a prompt leaves no independent record of what was allowed. Kelhe evaluates the actual tool call at runtime, outside the model, and produces a decision and an audit trail you can rely on." }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Kelhe map to our AI governance frameworks?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Kelhe is designed to support the controls these frameworks ask for: independent runtime enforcement and measurement of agent actions (NIST AI RMF), mitigation of excessive agency (OWASP LLM Top 10), demonstrable human oversight of consequential actions (EU AI Act), and an auditable management record (ISO/IEC 42001). Kelhe maps to these standards; it is not itself a certification." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can we run a security review before we commit?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. We share a security overview, complete security questionnaires, and provide a DPA on request. Private beta teams are onboarded individually, so a security and procurement review is part of how we start. Email team@kelhe.com." }
           }
         ]
       }
@@ -137,9 +147,10 @@
           <span class="eyebrow">Runtime control for AI agents</span>
           <h1 class="hero__title">The control plane for what your AI agents do.</h1>
           <p class="hero__sub">
-            Kelhe scores every tool call your agents make and decides — in milliseconds —
-            whether to allow it, hold it for a human, or block it. One checkpoint your
-            security and platform teams put in front of every agent action.
+            Kelhe scores every tool call your agents make and returns a decision in
+            milliseconds — allow, hold for a human, or block. It's the enforcement
+            checkpoint your security, platform, and risk teams put in front of every
+            action an agent can take.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="#request">Request access</a>
@@ -163,7 +174,7 @@
                 </div>
                 <div class="decision__row">
                   <span class="decision__k">reason</span>
-                  <span class="decision__reason">Administrative privilege escalation</span>
+                  <span class="decision__reason">Privilege escalation — admin role grant</span>
                 </div>
               </div>
             </div>
@@ -200,17 +211,17 @@
           <div class="pillar">
             <span class="pillar__num">01</span>
             <h3 class="pillar__title">See every action</h3>
-            <p class="pillar__desc">Run in observe mode to score every tool call with zero production impact — and get a complete, queryable audit trail from day one.</p>
+            <p class="pillar__desc">Start in observe mode: every tool call is scored with zero production impact, giving you a complete, queryable record of what your agents actually do — from day one.</p>
           </div>
           <div class="pillar">
             <span class="pillar__num">02</span>
             <h3 class="pillar__title">Stop the dangerous ones</h3>
-            <p class="pillar__desc">Each call gets a risk score and a decision. High-risk actions are held or blocked before they execute, with a clear reason on record.</p>
+            <p class="pillar__desc">Every call gets a risk score and a decision. High-risk actions are held or blocked before they execute — never after the fact — each with a reason on the record.</p>
           </div>
           <div class="pillar">
             <span class="pillar__num">03</span>
             <h3 class="pillar__title">Keep humans in control</h3>
-            <p class="pillar__desc">Route held actions into the approval and on-call workflows your team already uses — Slack, PagerDuty, and your own systems.</p>
+            <p class="pillar__desc">Held actions route into the approval and on-call workflows your teams already run — Slack, PagerDuty, and your own systems — so a person owns every irreversible call.</p>
           </div>
         </div>
       </div>
@@ -262,6 +273,78 @@
       </figure>
     </section>
 
+    <!-- ───────────────────────── What Kelhe catches ───────────────────────── -->
+    <section class="section section--alt" id="catches">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow">What Kelhe catches</span>
+          <h2 class="section__title">The actions that turn a wrong call into an incident.</h2>
+          <p class="section__lead">
+            Agents fail in ways a prompt can't prevent — what the OWASP LLM Top 10 calls
+            excessive agency. Kelhe evaluates the actual call, so the high-consequence
+            actions are the ones that get scored, held, or blocked.
+          </p>
+        </div>
+
+        <div class="sec">
+          <div class="sec__item">
+            <h3>Privilege &amp; access changes</h3>
+            <p>Role grants, permission escalations, and IAM edits — held for human approval before anyone gains access they shouldn't have.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Money movement</h3>
+            <p>Payments, transfers, refunds, and payouts scored against limits and context before any funds leave.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Production &amp; infrastructure</h3>
+            <p>Deploys, configuration changes, and infrastructure edits checked before they touch a live environment.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Bulk &amp; sensitive data access</h3>
+            <p>Large or sensitive reads and exports flagged before data can be exfiltrated at scale.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Destructive operations</h3>
+            <p>Deletes, drops, and overwrites stopped before an irreversible change lands.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Customer-facing actions</h3>
+            <p>Outbound emails, messages, and account changes reviewed before they reach a real customer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Who it's for ───────────────────────── -->
+    <section class="section container" id="who">
+      <div class="section__head">
+        <span class="eyebrow">Who it's for</span>
+        <h2 class="section__title">Built for the teams accountable for what agents do.</h2>
+        <p class="section__lead">
+          Agent risk doesn't sit with one team. Kelhe gives each of them the control
+          and the evidence they're responsible for.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar__num">01</span>
+          <h3 class="pillar__title">Security &amp; CISO</h3>
+          <p class="pillar__desc">An independent enforcement point in front of agent actions, with a complete audit trail for investigations and reviews — defense that doesn't depend on the model behaving.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__num">02</span>
+          <h3 class="pillar__title">Platform &amp; Engineering</h3>
+          <p class="pillar__desc">One wrapper, no agent rewrites, and a single API across every framework. Guardrails become shared infrastructure instead of per-team code, so teams ship agents faster.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__num">03</span>
+          <h3 class="pillar__title">Governance, Risk &amp; Compliance</h3>
+          <p class="pillar__desc">Demonstrable human oversight and an exportable record of every decision and reason — evidence you can put in front of auditors and regulators.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ───────────────────────── Security & trust ───────────────────────── -->
     <section class="section section--alt" id="security">
       <div class="container">
@@ -277,27 +360,27 @@
         <div class="sec">
           <div class="sec__item">
             <h3>Encrypted in transit</h3>
-            <p>All traffic to the scoring API is encrypted with TLS. You control what context is sent and what is redacted.</p>
+            <p>All traffic to the scoring API is encrypted with TLS. You control what context is sent and redact sensitive data at the wrapper, before it leaves your environment.</p>
           </div>
           <div class="sec__item">
             <h3>Never used to train</h3>
-            <p>Your tool calls and context are used to return a decision — not to train models.</p>
+            <p>Your tool calls and context are used only to return a decision — never to train models. Data minimization is the default.</p>
           </div>
           <div class="sec__item">
             <h3>Configurable fail-safe</h3>
-            <p>Choose fail-open or fail-closed per environment, so availability matches your risk tolerance.</p>
+            <p>Choose fail-open or fail-closed per environment, so availability always matches your risk tolerance — your decision, not ours.</p>
           </div>
           <div class="sec__item">
             <h3>Audit &amp; SIEM export</h3>
-            <p>Every score, decision, and reason is recorded, queryable, and exportable to Splunk or your SIEM.</p>
+            <p>Every score, decision, and reason is recorded, queryable, and exportable to Splunk or your SIEM — a defensible record for every action.</p>
           </div>
           <div class="sec__item">
-            <h3>SSO &amp; access control</h3>
-            <p>SSO/SAML and role-based policies per team, environment, and tool — available for enterprise.</p>
+            <h3>SSO &amp; least-privilege access</h3>
+            <p>SSO/SAML and role-based policies per team, environment, and tool. Internal access to customer data is restricted on a least-privilege basis.</p>
           </div>
           <div class="sec__item">
-            <h3>SLAs &amp; residency</h3>
-            <p>Uptime and latency SLAs, region pinning, and private connectivity options for enterprise agreements.</p>
+            <h3>SLAs &amp; data residency</h3>
+            <p>Uptime and latency SLAs, region pinning, and private connectivity options for enterprise agreements — and a DPA on request.</p>
           </div>
         </div>
 
@@ -310,6 +393,19 @@
             <li class="badge"><span class="badge__dot badge__dot--req"></span> DPA &amp; security review — on request</li>
           </ul>
         </div>
+
+        <div class="compliance">
+          <span class="compliance__label">Framework alignment</span>
+          <ul class="compliance__badges">
+            <li class="badge">NIST AI RMF</li>
+            <li class="badge">OWASP LLM Top 10 — Excessive Agency</li>
+            <li class="badge">EU AI Act — human oversight</li>
+            <li class="badge">ISO/IEC 42001</li>
+          </ul>
+        </div>
+        <p class="pricing__enterprise" style="text-align:left;margin-top:14px;">
+          Kelhe is designed to support the controls these frameworks ask for — it maps to them; it is not a certification. <a href="security.html">See how it maps</a>.
+        </p>
 
         <!-- TODO(owner): replace the "in progress / on request" statuses above with
              verified badges once certifications are issued. -->
@@ -395,6 +491,14 @@
           <details class="faq__item">
             <summary>Why not just handle this in the prompt?</summary>
             <p>Prompts shape intent; they don't enforce it. A model can be persuaded, confused, or wrong, and a prompt leaves no independent record of what was allowed. Kelhe evaluates the actual tool call at runtime — outside the model — and produces a decision and an audit trail you can rely on.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How does Kelhe map to our AI governance frameworks?</summary>
+            <p>Kelhe is designed to support the controls these frameworks ask for: independent runtime enforcement and measurement of agent actions (NIST AI RMF), mitigation of excessive agency (OWASP LLM Top 10), demonstrable human oversight of consequential actions (EU AI Act), and an auditable management record (ISO/IEC 42001). Kelhe maps to these standards; it is not itself a certification.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Can we run a security review before we commit?</summary>
+            <p>Yes. We share a security overview, complete security questionnaires, and provide a DPA on request. Private beta teams are onboarded individually, so a security and procurement review is part of how we start — email <a href="mailto:team@kelhe.com?subject=Security%20%26%20procurement%20review">team@kelhe.com</a>.</p>
           </details>
         </div>
       </div>
