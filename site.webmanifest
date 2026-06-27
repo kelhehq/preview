@@ -1,0 +1,23 @@
+{
+  "name": "Kelhe — Runtime risk engine for AI agents",
+  "short_name": "Kelhe",
+  "description": "A hosted runtime risk engine for AI agents. Wrap your tools once; every tool call is scored before it executes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "kelhe-fox-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "kelhe-fox-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

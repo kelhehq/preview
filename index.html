@@ -3,392 +3,564 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelhe — Protect every AI tool call before it executes</title>
-  <meta name="description" content="Kelhe is a hosted runtime risk engine for AI agents. Wrap your tools once. Every tool call is scored in milliseconds and returns a decision: proceed, hold for a human, or block." />
+  <title>Kelhe — The control point for AI agent actions</title>
+  <meta name="description" content="Kelhe is a runtime risk engine for AI agents. Wrap your tools once; every tool call is scored before it executes and returns a decision — allow, hold for a human, or block. Fail-safe, audited, built for enterprise." />
+  <meta name="keywords" content="AI agent security, runtime risk engine, tool call guardrails, agent governance, LLM security, human-in-the-loop" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Kelhe" />
+  <link rel="canonical" href="https://kelhe.com/" />
 
   <link rel="icon" type="image/svg+xml" href="kelhe-fox-icon.svg" />
   <link rel="apple-touch-icon" href="kelhe-fox-logo.png" />
+  <link rel="manifest" href="site.webmanifest" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kelhe" />
-  <meta property="og:title" content="Kelhe — A hosted runtime risk engine for AI agents" />
-  <meta property="og:description" content="Wrap your tools once. Every tool call is sent to Kelhe's cloud scoring engine, which returns a risk score and decision in milliseconds." />
-  <meta property="og:url" content="https://kelhe.com" />
+  <meta property="og:title" content="Kelhe — The control point for AI agent actions" />
+  <meta property="og:description" content="A runtime risk engine for AI agents. Every tool call is scored before it executes — allow, hold for a human, or block." />
+  <meta property="og:url" content="https://kelhe.com/" />
   <meta property="og:image" content="https://kelhe.com/kelhe-fox-logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kelhe — A hosted runtime risk engine for AI agents" />
-  <meta name="twitter:description" content="Wrap your tools once. Every tool call is scored before it runs. Proceed, hold for a human, or block." />
+  <meta name="twitter:title" content="Kelhe — The control point for AI agent actions" />
+  <meta name="twitter:description" content="Every AI agent tool call, scored before it executes. Allow, hold for a human, or block." />
   <meta name="twitter:image" content="https://kelhe.com/kelhe-fox-logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="kelhe-fox-icon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- ── Structured data (JSON-LD) ─────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://kelhe.com/#org",
+        "name": "Kelhe",
+        "url": "https://kelhe.com/",
+        "logo": "https://kelhe.com/kelhe-fox-logo.png",
+        "email": "team@kelhe.com",
+        "sameAs": [
+          "https://github.com/kelhehq",
+          "https://www.linkedin.com/company/kelhe",
+          "https://x.com/kelhehq"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kelhe",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Cloud",
+        "url": "https://kelhe.com/",
+        "publisher": { "@id": "https://kelhe.com/#org" },
+        "description": "Runtime risk engine for AI agents. Every guarded tool call is scored before it executes and returns a decision: allow, hold for a human, or block.",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "1.00",
+          "description": "Usage-based pricing: 500 tool calls per month free, then $1 per 1,000 tool calls. No tiers, no feature gating."
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much latency does Kelhe add?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Kelhe is built for the hot path. Scoring runs as a single hosted API call designed to return a decision in milliseconds, so guarded tool calls proceed with minimal added latency. Enterprise agreements include latency SLAs." }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if Kelhe is unreachable?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Failure behavior is configurable per environment. Choose fail-open to proceed if scoring is unavailable, or fail-closed to block until a decision is returned, so availability always matches your risk tolerance." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you train models on our data?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Customer tool calls and context are used only to return a decision, never to train models. Kelhe follows data-minimization principles, and a DPA and security review are available on request." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Kelhe run in our VPC or a specific region?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Deployment and data-residency options, including region pinning and private connectivity, are available for enterprise agreements. Email team@kelhe.com to discuss requirements." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why not just handle this in the prompt?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Prompts shape intent; they don't enforce it. A model can be persuaded, confused, or wrong, and a prompt leaves no independent record of what was allowed. Kelhe evaluates the actual tool call at runtime, outside the model, and produces a decision and an audit trail you can rely on." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ───────────────────────── Nav ───────────────────────── -->
   <header class="nav">
     <div class="container nav__inner">
       <a class="brand" href="#top" aria-label="Kelhe home">
-        <img class="brand__mark" src="kelhe-fox-icon.svg" alt="" width="30" height="30" />
+        <img class="brand__mark" src="kelhe-fox-icon.svg" alt="" width="28" height="28" />
         <span class="brand__name">Kelhe</span>
       </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#integrations">Integrations</a>
-        <a href="#workflow">How it works</a>
-        <a href="#api">API</a>
-        <a href="#features">Features</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navMenu" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#security">Security</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <div class="nav__cta">
+          <a class="nav__link" href="mailto:team@kelhe.com?subject=Talk%20to%20sales">Talk to sales</a>
+          <a class="btn btn--primary" href="#request">Request access</a>
+        </div>
       </nav>
-      <div class="nav__cta">
-        <a class="btn btn--ghost" href="#integrations">View Integrations</a>
-        <a class="btn btn--primary" href="#cta">Request API Access</a>
-      </div>
     </div>
   </header>
 
-  <main id="top">
+  <main id="main">
+    <span id="top"></span>
+
     <!-- ───────────────────────── Hero ───────────────────────── -->
     <section class="hero container">
-      <div class="hero__copy">
-        <span class="eyebrow"><span class="dot"></span> Runtime risk engine · in private beta</span>
-        <h1 class="hero__title">Protect every AI&nbsp;tool call before it&nbsp;executes.</h1>
-        <p class="hero__sub">
-          Kelhe is a hosted runtime risk engine for AI agents. Wrap your tools once.
-          Every tool call is sent to Kelhe's cloud scoring engine, which returns a
-          risk score and decision in milliseconds.
-        </p>
-        <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="#cta">Request API Access</a>
-          <a class="btn btn--ghost btn--lg" href="#integrations">View Integrations</a>
-        </div>
-        <ul class="hero__meta">
-          <li>Framework agnostic</li>
-          <li>No local models</li>
-          <li>Millisecond decisions</li>
-        </ul>
-      </div>
-
-      <div class="hero__panel">
-        <div class="panel">
-          <div class="panel__bar">
-            <span class="panel__dots"><i></i><i></i><i></i></span>
-            <span class="panel__title">POST /v1/score</span>
-            <span class="panel__badge">200 OK</span>
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow">Runtime control for AI agents</span>
+          <h1 class="hero__title">The control plane for what your AI agents do.</h1>
+          <p class="hero__sub">
+            Kelhe scores every tool call your agents make and decides — in milliseconds —
+            whether to allow it, hold it for a human, or block it. One checkpoint your
+            security and platform teams put in front of every agent action.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="#request">Request access</a>
+            <a class="btn btn--ghost btn--lg" href="mailto:team@kelhe.com?subject=Talk%20to%20sales">Talk to sales</a>
           </div>
-          <div class="panel__body">
-<pre class="code"><span class="c-mut">// action intercepted at runtime</span>
-<span class="c-fn">assign_roles</span>(
-  user=<span class="c-str">"Suraj"</span>,
-  roles=[<span class="c-str">"admin"</span>]
-)
+          <p class="hero__note">Wrap your tools once · No agent rewrites · No local models</p>
+        </div>
 
-<span class="c-mut">risk_score</span>   <span class="score-pill score-pill--high">9.5</span>
-<span class="c-mut">decision</span>     <span class="c-decision">HOLD FOR HUMAN</span>
-<span class="c-mut">reason</span>       <span class="c-txt">Administrative privilege</span>
-             <span class="c-txt">escalation</span></pre>
+        <div class="hero__visual">
+          <div class="decision" role="img" aria-label="Example: a tool call to assign admin roles is held for human approval">
+            <div class="decision__bar">
+              <span class="decision__route">POST /v1/score</span>
+              <span class="decision__tag">Runtime decision</span>
+            </div>
+            <div class="decision__body">
+<pre class="decision__call"><span class="k">assign_roles</span>(user="Suraj", roles=["admin"])</pre>
+              <div class="decision__rows">
+                <div class="decision__row">
+                  <span class="decision__k">decision</span>
+                  <span class="decision__v decision__v--hold">Hold for human</span>
+                </div>
+                <div class="decision__row">
+                  <span class="decision__k">reason</span>
+                  <span class="decision__reason">Administrative privilege escalation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Framework strip ── -->
+      <div class="strip">
+        <span class="strip__label">Works with</span>
+        <div class="strip__items">
+          <span>OpenAI Agents SDK</span>
+          <span>LangGraph</span>
+          <span>CrewAI</span>
+          <span>AutoGen</span>
+          <span>Custom agents</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Value ───────────────────────── -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow">Why Kelhe</span>
+          <h2 class="section__title">When an agent can act, a wrong call is an incident.</h2>
+          <p class="section__lead">
+            Autonomous agents now deploy code, move money, and change access. Kelhe puts a
+            single, governed checkpoint in front of the actions that matter.
+          </p>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar">
+            <span class="pillar__num">01</span>
+            <h3 class="pillar__title">See every action</h3>
+            <p class="pillar__desc">Run in observe mode to score every tool call with zero production impact — and get a complete, queryable audit trail from day one.</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar__num">02</span>
+            <h3 class="pillar__title">Stop the dangerous ones</h3>
+            <p class="pillar__desc">Each call gets a risk score and a decision. High-risk actions are held or blocked before they execute, with a clear reason on record.</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar__num">03</span>
+            <h3 class="pillar__title">Keep humans in control</h3>
+            <p class="pillar__desc">Route held actions into the approval and on-call workflows your team already uses — Slack, PagerDuty, and your own systems.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ───────────────────────── Trust strip ───────────────────────── -->
-    <section class="strip container" aria-label="Compatible frameworks">
-      <span class="strip__label">Wraps the tools in</span>
-      <ul class="strip__logos">
-        <li>OpenAI Agents SDK</li>
-        <li>LangGraph</li>
-        <li>CrewAI</li>
-        <li>AutoGen</li>
-        <li>Custom Agents</li>
-      </ul>
-    </section>
-
-    <!-- ───────────────────────── Architecture ───────────────────────── -->
-    <section class="section container" id="architecture">
+    <!-- ───────────────────────── How it works ───────────────────────── -->
+    <section class="section container" id="how">
       <div class="section__head">
-        <h2 class="section__title">A single checkpoint between intent and action.</h2>
-        <p class="section__lead">
-          Your agent decides what to do. Kelhe decides whether it should. Every tool
-          call flows through one wrapper, one API, one decision.
-        </p>
-      </div>
-
-      <div class="arch">
-        <div class="arch__node arch__node--accent">Agent</div>
-        <div class="arch__arrow">↓</div>
-        <div class="arch__node arch__node--code">guard(kelhe, tool)</div>
-        <div class="arch__arrow">↓</div>
-        <div class="arch__node">Kelhe API</div>
-        <div class="arch__arrow">↓</div>
-        <div class="arch__node arch__node--accent">Risk Engine</div>
-        <div class="arch__arrow">↓</div>
-        <div class="arch__branch">
-          <div class="arch__leaf arch__leaf--ok">Proceed</div>
-          <div class="arch__leaf arch__leaf--hold">Human Approval</div>
-          <div class="arch__leaf arch__leaf--block">Block</div>
-        </div>
-        <div class="arch__arrow">↓</div>
-        <div class="arch__node arch__node--tool">Tool executes</div>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── Integrations ───────────────────────── -->
-    <section class="section container" id="integrations">
-      <div class="section__head">
-        <h2 class="section__title">Works with your stack</h2>
-        <p class="section__lead">
-          Kelhe integrates through tool wrapping. You don't rewrite your agents —
-          you wrap the tools they already use.
-        </p>
-      </div>
-
-      <div class="cards cards--5">
-        <article class="card card--integration">
-          <h3>OpenAI Agents</h3>
-          <p>Wrap any function tool with <code>guard()</code> and keep your existing Agents SDK setup.</p>
-        </article>
-        <article class="card card--integration">
-          <h3>LangGraph</h3>
-          <p>Drop guarded tools straight into <code>create_agent</code> and your graph nodes.</p>
-        </article>
-        <article class="card card--integration">
-          <h3>CrewAI</h3>
-          <p>Give every crew member tools that are scored before any action runs.</p>
-        </article>
-        <article class="card card--integration">
-          <h3>AutoGen</h3>
-          <p>Register guarded tools with your assistants and conversable agents.</p>
-        </article>
-        <article class="card card--integration">
-          <h3>Custom Agents</h3>
-          <p>Anywhere a tool is called, wrap it. Kelhe works without a framework at all.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── Workflow ───────────────────────── -->
-    <section class="section container" id="workflow">
-      <div class="section__head">
+        <span class="eyebrow">How it works</span>
         <h2 class="section__title">One wrapper. One API. Every tool call protected.</h2>
+        <p class="section__lead">
+          You don't rewrite your agents — you wrap the tools they already use. Start in
+          observe mode, then flip to enforce when your team trusts the decisions.
+        </p>
       </div>
 
-      <div class="steps">
-        <article class="step">
-          <span class="step__num">01</span>
-          <h3 class="step__title">Wrap your tool</h3>
-          <p class="step__desc">Add a single call around the tools your agent already uses.</p>
-<pre class="code code--inline"><span class="c-fn">guard</span>(kelhe, assign_roles)</pre>
-        </article>
+      <figure class="flow" aria-label="Data flow: an agent's tool call passes through guard() to Kelhe's scoring engine, which returns allow, hold for a human, or block; the tool executes only on allow.">
+        <div class="flow__pipe" aria-hidden="true">
+          <div class="flow__node">
+            <span class="flow__k">Agent</span>
+            <span class="flow__sub">makes a tool call</span>
+          </div>
+          <div class="flow__edge"><span class="flow__elabel">tool call</span></div>
+          <div class="flow__node flow__node--code">
+            <span class="flow__k">guard(kelhe, tool)</span>
+            <span class="flow__sub">one wrapper, no rewrites</span>
+          </div>
+          <div class="flow__edge"><span class="flow__elabel">+ context</span></div>
+          <div class="flow__node flow__node--accent">
+            <span class="flow__k">Kelhe scoring engine</span>
+            <span class="flow__sub">risk score &amp; decision in ms</span>
+          </div>
+          <div class="flow__edge"><span class="flow__elabel">decision</span></div>
+          <div class="flow__decisions">
+            <span class="flow__pill flow__pill--ok">Allow</span>
+            <span class="flow__pill flow__pill--hold">Hold for human</span>
+            <span class="flow__pill flow__pill--block">Block</span>
+          </div>
+          <div class="flow__edge flow__edge--ok"><span class="flow__elabel">on allow</span></div>
+          <div class="flow__node">
+            <span class="flow__k">Tool executes</span>
+            <span class="flow__sub">only after a decision</span>
+          </div>
+        </div>
+        <figcaption class="flow__caption">
+          The tool runs only on <strong>Allow</strong>. <strong>Hold</strong> routes the
+          action to a human; <strong>Block</strong> stops it — every outcome recorded with a reason.
+        </figcaption>
+      </figure>
+    </section>
 
-        <article class="step">
-          <span class="step__num">02</span>
-          <h3 class="step__title">SDK sends the action to Kelhe</h3>
-          <p class="step__desc">Before execution, the SDK forwards full context for scoring.</p>
-          <ul class="step__list">
-            <li>Conversation history</li>
-            <li>Tool arguments</li>
-            <li>Instructions</li>
-            <li>Surrounding context</li>
+    <!-- ───────────────────────── Security & trust ───────────────────────── -->
+    <section class="section section--alt" id="security">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Security &amp; trust</span>
+          <h2 class="section__title">Built to be trusted on the path of your most sensitive actions.</h2>
+          <p class="section__lead">
+            Kelhe sits in front of the actions that matter, so it's engineered for the
+            controls a platform, security, and procurement team expects.
+          </p>
+        </div>
+
+        <div class="sec">
+          <div class="sec__item">
+            <h3>Encrypted in transit</h3>
+            <p>All traffic to the scoring API is encrypted with TLS. You control what context is sent and what is redacted.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Never used to train</h3>
+            <p>Your tool calls and context are used to return a decision — not to train models.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Configurable fail-safe</h3>
+            <p>Choose fail-open or fail-closed per environment, so availability matches your risk tolerance.</p>
+          </div>
+          <div class="sec__item">
+            <h3>Audit &amp; SIEM export</h3>
+            <p>Every score, decision, and reason is recorded, queryable, and exportable to Splunk or your SIEM.</p>
+          </div>
+          <div class="sec__item">
+            <h3>SSO &amp; access control</h3>
+            <p>SSO/SAML and role-based policies per team, environment, and tool — available for enterprise.</p>
+          </div>
+          <div class="sec__item">
+            <h3>SLAs &amp; residency</h3>
+            <p>Uptime and latency SLAs, region pinning, and private connectivity options for enterprise agreements.</p>
+          </div>
+        </div>
+
+        <div class="compliance">
+          <span class="compliance__label">Compliance</span>
+          <ul class="compliance__badges">
+            <li class="badge"><span class="badge__dot badge__dot--prog"></span> SOC 2 Type II — in progress</li>
+            <li class="badge"><span class="badge__dot badge__dot--ok"></span> GDPR-aligned</li>
+            <li class="badge"><span class="badge__dot badge__dot--ok"></span> Data-minimization by design</li>
+            <li class="badge"><span class="badge__dot badge__dot--req"></span> DPA &amp; security review — on request</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="step">
-          <span class="step__num">03</span>
-          <h3 class="step__title">Receive a decision</h3>
-          <p class="step__desc">Kelhe returns a score and a decision in milliseconds.</p>
-          <div class="step__decisions">
-            <span class="tag tag--ok">Proceed</span>
-            <span class="tag tag--hold">Hold</span>
-            <span class="tag tag--block">Block</span>
-          </div>
-        </article>
+        <!-- TODO(owner): replace the "in progress / on request" statuses above with
+             verified badges once certifications are issued. -->
+        <!-- TODO(owner): customer logo wall — uncomment and add real, approved logos
+             once you have permission to display them.
+        <div class="logos"> ... </div>
+        -->
+
+        <div class="sec__cta">
+          <a class="btn btn--primary" href="security.html">Read the security overview</a>
+          <a class="btn btn--ghost" href="mailto:team@kelhe.com?subject=Enterprise%20%26%20security%20review">Talk to sales</a>
+        </div>
       </div>
     </section>
 
-    <!-- ───────────────────────── SDK example ───────────────────────── -->
-    <section class="section container" id="sdk">
-      <div class="split">
-        <div class="split__copy">
-          <h2 class="section__title">Integrate in a single import.</h2>
+    <!-- ───────────────────────── Pricing ───────────────────────── -->
+    <section class="section container" id="pricing">
+      <div class="section__head section__head--center">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="section__title">Simple usage-based pricing</h2>
+        <p class="section__lead">Pay only for the tool calls Kelhe evaluates. No tiers, no feature gating.</p>
+      </div>
+
+      <div class="pricing">
+        <div class="pricing__card">
+          <div class="pricing__row">
+            <div>
+              <span class="pricing__tier">Free</span>
+              <span class="pricing__sub">Every month, on the house</span>
+            </div>
+            <div class="pricing__price">
+              <span class="pricing__amount">500</span>
+              <span class="pricing__unit">tool calls / month</span>
+            </div>
+          </div>
+          <div class="pricing__row">
+            <div>
+              <span class="pricing__tier">Usage</span>
+              <span class="pricing__sub">Beyond the free tier</span>
+            </div>
+            <div class="pricing__price">
+              <span class="pricing__amount">$1</span>
+              <span class="pricing__unit">per 1,000 tool calls</span>
+            </div>
+          </div>
+
+          <p class="pricing__explain">
+            A tool call is any guarded action evaluated by Kelhe — in observe or enforce
+            mode. Every mode is included; nothing is gated behind a plan.
+          </p>
+
+          <a class="btn btn--primary btn--lg" href="#request">Request access</a>
+          <p class="pricing__enterprise">Volume &amp; enterprise agreements — <a href="mailto:team@kelhe.com?subject=Enterprise%20pricing">talk to sales</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── FAQ ───────────────────────── -->
+    <section class="section section--alt" id="faq">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="section__title">What review teams ask first</h2>
+        </div>
+
+        <div class="faq">
+          <details class="faq__item">
+            <summary>How much latency does Kelhe add?</summary>
+            <p>Kelhe is built for the hot path. Scoring runs as a single hosted API call designed to return a decision in milliseconds, so guarded tool calls proceed with minimal added latency. Enterprise agreements include latency SLAs.</p>
+          </details>
+          <details class="faq__item">
+            <summary>What happens if Kelhe is unreachable?</summary>
+            <p>Failure behavior is configurable per environment. Choose fail-open — proceed if scoring is unavailable — or fail-closed — block until a decision is returned. Availability always matches your risk tolerance.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Do you train models on our data?</summary>
+            <p>No. Customer tool calls and context are used only to return a decision, never to train models. Kelhe follows data-minimization principles, and a DPA and security review are available on request.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Can Kelhe run in our VPC or a specific region?</summary>
+            <p>Deployment and data-residency options, including region pinning and private connectivity, are available for enterprise agreements. Email <a href="mailto:team@kelhe.com?subject=Deployment%20%26%20residency">team@kelhe.com</a> to discuss requirements.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Why not just handle this in the prompt?</summary>
+            <p>Prompts shape intent; they don't enforce it. A model can be persuaded, confused, or wrong, and a prompt leaves no independent record of what was allowed. Kelhe evaluates the actual tool call at runtime — outside the model — and produces a decision and an audit trail you can rely on.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Request access ───────────────────────── -->
+    <section class="section section--alt" id="request">
+      <div class="container request">
+        <div class="request__copy">
+          <span class="eyebrow">Request access</span>
+          <h2 class="section__title">Put Kelhe in front of your agents.</h2>
           <p class="section__lead">
-            Wrap a tool with <code>guard()</code> and every call it makes is evaluated
-            before it executes. No agent rewrites. No local models.
+            Tell us what your agents are doing and we'll set you up. Private beta —
+            we onboard teams individually so the fit is right.
           </p>
-          <p class="split__note">
-            That's it. Every tool call is now evaluated before execution.
-          </p>
+
+          <ol class="next">
+            <li class="next__step">
+              <span class="next__num">1</span>
+              <div>
+                <h3 class="next__title">Reach out</h3>
+                <p class="next__desc">Send the short form, or email us directly. We reply within one business day.</p>
+              </div>
+            </li>
+            <li class="next__step">
+              <span class="next__num">2</span>
+              <div>
+                <h3 class="next__title">30-minute scoping call</h3>
+                <p class="next__desc">We map your agents, tools, and the actions that carry real risk.</p>
+              </div>
+            </li>
+            <li class="next__step">
+              <span class="next__num">3</span>
+              <div>
+                <h3 class="next__title">Guided pilot</h3>
+                <p class="next__desc">Start in observe mode on your own workloads, then flip to enforce when you're ready.</p>
+              </div>
+            </li>
+          </ol>
         </div>
 
-        <div class="panel panel--lg">
-          <div class="panel__bar">
-            <span class="panel__dots"><i></i><i></i><i></i></span>
-            <span class="panel__title">agent.py</span>
-            <span class="panel__lang">Python</span>
-          </div>
-          <div class="panel__body">
-<pre class="code"><span class="c-kw">from</span> kelhe.adapters.langgraph <span class="c-kw">import</span> <span class="c-fn">guard, AgentContext</span>
-<span class="c-kw">from</span> kelhe <span class="c-kw">import</span> <span class="c-fn">Kelhe, Mode</span>
-<span class="c-kw">from</span> langchain.agents <span class="c-kw">import</span> <span class="c-fn">create_agent</span>
-<span class="c-kw">from</span> langchain_openai <span class="c-kw">import</span> <span class="c-fn">ChatOpenAI</span>
+        <div class="request__form">
+          <!-- Web3Forms key is set. Submissions are delivered to the email registered
+               for this key at web3forms.com — make sure that is team@kelhe.com. -->
+          <form id="requestForm" class="form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="cf0c25e7-f2dc-433e-bff4-dc9bb9f6ca3f" />
+            <input type="hidden" name="subject" value="Kelhe — new access request" />
+            <input type="hidden" name="from_name" value="Kelhe website" />
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-kelhe = Kelhe(mode=Mode.ENFORCE, risk_threshold=7.0,
-  audit_handler=splunk, api_key="kelhe...",
-  escalation_handler=pagerduty)
-ctx = AgentContext()
-agent = <span class="c-fn">create_agent</span>(
-    ChatOpenAI(model="gpt-4o-mini"),
-    tools=[
-        <span class="c-fn">guard</span>(kelhe, assign_roles, context=ctx)
-    ]
-)
-ctx.bind(agent)</pre>
-          </div>
+            <div class="form__row">
+              <label class="form__field">
+                <span class="form__label">Name</span>
+                <input class="form__input" type="text" name="name" required autocomplete="name" />
+              </label>
+              <label class="form__field">
+                <span class="form__label">Work email</span>
+                <input class="form__input" type="email" name="email" required autocomplete="email" />
+              </label>
+            </div>
+            <label class="form__field">
+              <span class="form__label">Company</span>
+              <input class="form__input" type="text" name="company" required autocomplete="organization" />
+            </label>
+            <label class="form__field">
+              <span class="form__label">What are your agents doing?</span>
+              <textarea class="form__input" name="use_case" rows="3" placeholder="Deploys, payments, access changes, support actions…" required></textarea>
+            </label>
+
+            <button class="btn btn--primary btn--lg form__submit" type="submit">Request access</button>
+            <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+            <p class="form__fallback">Prefer email? <a href="mailto:team@kelhe.com?subject=API%20access%20request">team@kelhe.com</a></p>
+          </form>
         </div>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── API example ───────────────────────── -->
-    <section class="section container" id="api">
-      <div class="section__head">
-        <h2 class="section__title">A clean, predictable API</h2>
-        <p class="section__lead">
-          Send the action and its context. Get back a score, a decision, and a reason —
-          designed for runtime inference.
-        </p>
-      </div>
-
-      <div class="api-grid">
-        <div class="panel">
-          <div class="panel__bar">
-            <span class="panel__dots"><i></i><i></i><i></i></span>
-            <span class="panel__title">Request</span>
-            <span class="panel__lang">JSON</span>
-          </div>
-          <div class="panel__body">
-<pre class="code"><span class="c-pun">{</span>
-  <span class="c-key">"tool_name"</span>: <span class="c-str">"assign_roles"</span>,
-  <span class="c-key">"tool_arguments"</span>: <span class="c-pun">{</span>
-    <span class="c-key">"user_name"</span>: <span class="c-str">"Suraj"</span>,
-    <span class="c-key">"roles"</span>: [<span class="c-str">"admin"</span>]
-  <span class="c-pun">}</span>,
-  <span class="c-key">"conversation_history"</span>: [
-    <span class="c-mut">…</span>
-  ]
-<span class="c-pun">}</span></pre>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel__bar">
-            <span class="panel__dots"><i></i><i></i><i></i></span>
-            <span class="panel__title">Response</span>
-            <span class="panel__badge">200 OK</span>
-          </div>
-          <div class="panel__body">
-<pre class="code"><span class="c-pun">{</span>
-  <span class="c-key">"risk_score"</span>: <span class="c-num">9.5</span>,
-  <span class="c-key">"decision"</span>: <span class="c-str">"hold"</span>,
-  <span class="c-key">"reason"</span>: <span class="c-str">"Administrative</span>
-             <span class="c-str">privilege escalation"</span>
-<span class="c-pun">}</span></pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── Features ───────────────────────── -->
-    <section class="section container" id="features">
-      <div class="section__head">
-        <h2 class="section__title">Built for production AI agents</h2>
-        <p class="section__lead">
-          Everything you need to run autonomous agents with confidence in front of
-          real users and real systems.
-        </p>
-      </div>
-
-      <div class="cards cards--3">
-        <article class="card">
-          <div class="card__icon">◧</div>
-          <h3>Audit every decision</h3>
-          <p>Every action produces a complete, queryable audit trail.</p>
-        </article>
-        <article class="card">
-          <div class="card__icon">⌖</div>
-          <h3>Human approval</h3>
-          <p>Route risky actions into your existing approval workflow.</p>
-        </article>
-        <article class="card">
-          <div class="card__icon">☁</div>
-          <h3>Cloud risk engine</h3>
-          <p>No models to run locally. Scoring is fully hosted.</p>
-        </article>
-        <article class="card">
-          <div class="card__icon">⬡</div>
-          <h3>Framework agnostic</h3>
-          <p>Works anywhere tools exist — with or without a framework.</p>
-        </article>
-        <article class="card">
-          <div class="card__icon">⚡</div>
-          <h3>Fast API</h3>
-          <p>Designed for runtime inference on the hot path.</p>
-        </article>
-        <article class="card">
-          <div class="card__icon">◎</div>
-          <h3>Explainable decisions</h3>
-          <p>Every response includes a score and a human-readable reason.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── Positioning ───────────────────────── -->
-    <section class="section container" id="positioning">
-      <div class="positioning">
-        <div class="positioning__copy">
-          <h2 class="section__title">For agents that do real things.</h2>
-          <p class="section__lead">
-            The moment an agent can act on the world, a wrong call is no longer a bad
-            answer — it's a real incident. Kelhe sits in front of the actions that matter.
-          </p>
-        </div>
-        <ul class="positioning__list">
-          <li>Deploy code</li>
-          <li>Send emails</li>
-          <li>Modify databases</li>
-          <li>Provision infrastructure</li>
-          <li>Move money</li>
-          <li>Grant permissions</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── CTA ───────────────────────── -->
-    <section class="cta container" id="cta">
-      <div class="cta__inner">
-        <img class="cta__mark" src="kelhe-fox-icon.svg" alt="" width="46" height="46" />
-        <h2 class="cta__title">Before your agent acts,<br />ask Kelhe.</h2>
-        <a class="btn btn--primary btn--lg" href="mailto:team@kelhe.com?subject=Early%20Access">Request Early Access</a>
-        <p class="cta__note">Integrates in minutes. Works with your existing agents.</p>
       </div>
     </section>
   </main>
 
   <!-- ───────────────────────── Footer ───────────────────────── -->
-  <footer class="footer container">
-    <div class="footer__brand">
-      <img src="kelhe-fox-icon.svg" alt="" width="26" height="26" />
-      <span>Kelhe</span>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brandcol">
+        <div class="footer__brand">
+          <img src="kelhe-fox-icon.svg" alt="" width="24" height="24" />
+          <span>Kelhe</span>
+        </div>
+        <p class="footer__tagline">The control point for AI agent actions. Wrap your tools once; guard every tool call.</p>
+        <a class="footer__contact" href="mailto:team@kelhe.com">team@kelhe.com</a>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="security.html">Security</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="https://github.com/kelhehq" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/company/kelhe" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/kelhehq" rel="noopener">X</a>
+      </nav>
     </div>
-    <nav class="footer__links" aria-label="Footer">
-      <a href="https://github.com/kelhehq" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/company/kelhe" rel="noopener">LinkedIn</a>
-      <a href="https://x.com/kelhehq" rel="noopener">X</a>
-      <a href="mailto:team@kelhe.com">Email</a>
-    </nav>
-    <p class="footer__copy">© 2026 Kelhe. All rights reserved.</p>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 Kelhe. All rights reserved.</p>
+      <p class="footer__copy">Private beta · Runtime risk engine for AI agents</p>
+    </div>
   </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('navToggle');
+      var menu = document.getElementById('navMenu');
+      if (!btn || !menu) return;
+      function close() {
+        menu.classList.remove('is-open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+      }
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        btn.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      menu.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') close();
+      });
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') close();
+      });
+    })();
+
+    // Request-access form — progressive enhancement over a normal POST
+    (function () {
+      var form = document.getElementById('requestForm');
+      var status = document.getElementById('formStatus');
+      if (!form || !status) return;
+      form.addEventListener('submit', function (e) {
+        // If the key hasn't been configured yet, let the native POST proceed.
+        var key = form.elements['access_key'] ? form.elements['access_key'].value : '';
+        if (!key || key.indexOf('YOUR_WEB3FORMS') === 0) return;
+        e.preventDefault();
+        var btn = form.querySelector('.form__submit');
+        status.className = 'form__status';
+        status.textContent = 'Sending…';
+        if (btn) btn.disabled = true;
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              form.reset();
+              status.className = 'form__status form__status--ok';
+              status.textContent = 'Thanks — your request is in. We’ll reply within one business day.';
+            } else {
+              throw new Error((res.d && res.d.message) || 'Request failed');
+            }
+          })
+          .catch(function () {
+            status.className = 'form__status form__status--err';
+            status.innerHTML = 'Something went wrong. Please email <a href="mailto:team@kelhe.com?subject=API%20access%20request">team@kelhe.com</a>.';
+          })
+          .finally(function () { if (btn) btn.disabled = false; });
+      });
+    })();
+  </script>
 </body>
 </html>

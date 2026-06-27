@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security overview — Kelhe</title>
+  <meta name="description" content="How Kelhe handles your data: encryption, data minimization, retention, sub-processors, fail-safe behavior, audit, and compliance status." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://kelhe.com/security.html" />
+  <link rel="icon" type="image/svg+xml" href="kelhe-fox-icon.svg" />
+  <link rel="apple-touch-icon" href="kelhe-fox-logo.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html" aria-label="Kelhe home">
+        <img class="brand__mark" src="kelhe-fox-icon.svg" alt="" width="28" height="28" />
+        <span class="brand__name">Kelhe</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#faq">FAQ</a>
+        <div class="nav__cta">
+          <a class="btn btn--primary" href="index.html#request">Request access</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container doc">
+      <a class="doc__back" href="index.html">← Back to home</a>
+      <div class="doc__notice">
+        Draft — this is a baseline overview for evaluation. Review with security and legal counsel before relying on it contractually.
+      </div>
+
+      <h1 class="doc__title">Security overview</h1>
+      <p class="doc__meta">Last updated: 27 June 2026 · Questions: <a href="mailto:team@kelhe.com?subject=Security%20question">team@kelhe.com</a></p>
+
+      <div class="doc__body">
+        <h2>What Kelhe does</h2>
+        <p>
+          Kelhe is a hosted runtime risk engine. When you wrap a tool with <code>guard()</code>,
+          each tool call your agent makes is sent to Kelhe's scoring API before it executes.
+          Kelhe returns a risk score and a decision — allow, hold for a human, or block. Kelhe
+          sits on the path of these actions, so it is designed to be trusted there.
+        </p>
+
+        <h2>Data we receive</h2>
+        <p>To score a tool call, the SDK sends only what is needed to make a decision:</p>
+        <ul>
+          <li>The tool name and its arguments</li>
+          <li>Relevant conversation or task context you choose to include</li>
+          <li>Your configuration (mode, risk threshold, environment)</li>
+        </ul>
+        <p>
+          You control what is sent and what is redacted before it leaves your environment.
+          We recommend redacting secrets and unnecessary personal data at the wrapper.
+        </p>
+
+        <h2>How data is handled</h2>
+        <ul>
+          <li><strong>Encrypted in transit.</strong> All API traffic uses TLS.</li>
+          <li><strong>Not used to train models.</strong> Your tool calls and context are used to return a decision, never to train models.</li>
+          <li><strong>Data minimization.</strong> We process only the context required to score a call.</li>
+          <li><strong>Retention.</strong> Decision records and audit logs are retained for your account's configured period; retention windows and deletion requests are covered in the DPA.</li>
+        </ul>
+
+        <h2>Availability &amp; fail-safe behavior</h2>
+        <p>
+          Failure behavior is configurable per environment. Choose <strong>fail-open</strong>
+          (proceed if scoring is unavailable) or <strong>fail-closed</strong> (block until a
+          decision is returned), so availability always matches your risk tolerance. Enterprise
+          agreements include uptime and latency SLAs.
+        </p>
+
+        <h2>Audit &amp; monitoring</h2>
+        <p>
+          Every score, decision, and reason is recorded and queryable, and can be exported to
+          Splunk or your SIEM. Held actions can be routed to your approval and on-call workflows.
+        </p>
+
+        <h2>Access control</h2>
+        <p>
+          SSO/SAML and role-based policies (per team, environment, and tool) are available for
+          enterprise. Internal access to customer data is restricted on a least-privilege basis.
+        </p>
+
+        <h2>Sub-processors</h2>
+        <p>
+          Kelhe relies on a small set of infrastructure sub-processors to operate the service.
+          A current list is available on request and maintained in the DPA.
+        </p>
+        <!-- TODO(owner): publish the actual sub-processor list (cloud host, etc.) here. -->
+
+        <h2>Deployment &amp; data residency</h2>
+        <p>
+          Region pinning and private connectivity options are available for enterprise
+          agreements. Contact us to discuss specific residency requirements.
+        </p>
+
+        <h2>Compliance status</h2>
+        <ul>
+          <li>SOC 2 Type II — in progress</li>
+          <li>GDPR-aligned; DPA available on request</li>
+          <li>Data-minimization by design</li>
+        </ul>
+        <!-- TODO(owner): update with verified certifications once issued. -->
+
+        <h2>Reporting a vulnerability</h2>
+        <p>
+          We welcome responsible disclosure. Please report suspected vulnerabilities to
+          <a href="mailto:team@kelhe.com?subject=Security%20disclosure">team@kelhe.com</a>
+          and allow us reasonable time to respond before public disclosure.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Security questions, documentation requests, and DPA requests:
+          <a href="mailto:team@kelhe.com?subject=Security%20%26%20DPA">team@kelhe.com</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brandcol">
+        <div class="footer__brand">
+          <img src="kelhe-fox-icon.svg" alt="" width="24" height="24" />
+          <span>Kelhe</span>
+        </div>
+        <p class="footer__tagline">The control point for AI agent actions. Wrap your tools once; guard every tool call.</p>
+        <a class="footer__contact" href="mailto:team@kelhe.com">team@kelhe.com</a>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="security.html">Security</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="https://github.com/kelhehq" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 Kelhe. All rights reserved.</p>
+      <p class="footer__copy">Contact: <a class="footer__contact" href="mailto:team@kelhe.com">team@kelhe.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>
